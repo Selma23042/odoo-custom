@@ -4,6 +4,7 @@ pipeline {
     environment {
         IMAGE_NAME = "odoo-custom"
         NEXUS_URL  = "nexus:8082"
+        SONAR_URL  = "http://sonarqube:9000"
         STAGING_NS = "staging"
         PROD_NS    = "production"
     }
