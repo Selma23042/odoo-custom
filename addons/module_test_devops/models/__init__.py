@@ -1,1 +1,1 @@
-from . import mon_modele
+from . import mon_modele  # noqa: F401

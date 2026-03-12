@@ -1,5 +1,6 @@
 from odoo.tests.common import TransactionCase
 
+
 class TestMonModele(TransactionCase):
 
     def test_creation_enregistrement(self):
