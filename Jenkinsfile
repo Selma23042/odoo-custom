@@ -29,9 +29,12 @@ pipeline {
 
         stage('Tests Unitaires') {
             steps {
-                sh 'pip install pytest --quiet'
-                sh 'pytest addons/tests/ -v'
-            }
+        sh '''
+            python3 -m venv .venv
+            .venv/bin/pip install pytest --quiet
+            .venv/bin/pytest addons/module_test_devops/tests/ -v
+        '''
+    }
         }
 
         stage('Analyse SonarQube') {
