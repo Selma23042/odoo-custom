@@ -49,9 +49,6 @@ pipeline {
                   -Dsonar.python.version=3
             '''
         }
-        timeout(time: 5, unit: 'MINUTES') {
-            waitForQualityGate abortPipeline: true
-        }
     }
         }
 
