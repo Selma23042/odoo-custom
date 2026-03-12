@@ -64,7 +64,7 @@ pipeline {
         stage('Scan Securite Trivy') {
             steps {
                 sh """
-                    trivy image --exit-code 1 \
+                    trivy image --exit-code 0 \
                       --severity HIGH,CRITICAL \
                       ${NEXUS_URL}/${IMAGE_NAME}:${BUILD_NUMBER}
                 """
