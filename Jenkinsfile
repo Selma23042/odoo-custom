@@ -29,7 +29,7 @@ pipeline {
 
         stage('Tests Unitaires') {
             steps {
-        sh '''
+       sh '''
             python3 -m venv .venv
             .venv/bin/pip install pytest --quiet
             .venv/bin/pytest addons/module_test_devops/tests/ -v
