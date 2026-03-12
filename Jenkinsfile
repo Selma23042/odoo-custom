@@ -38,14 +38,20 @@ pipeline {
         }
 
         stage('Analyse SonarQube') {
-            steps {
-                withSonarQubeEnv('SonarQube') {
-                    sh 'sonar-scanner -Dsonar.projectKey=odoo-custom'
-                }
-                timeout(time: 5, unit: 'MINUTES') {
-                    waitForQualityGate abortPipeline: true
-                }
-            }
+             steps {
+        withSonarQubeEnv('SonarQube') {
+            sh '''
+                sonar-scanner \
+                  -Dsonar.projectKey=odoo-custom \
+                  -Dsonar.sources=addons \
+                  -Dsonar.host.url=http://localhost:9000 \
+                  -Dsonar.python.version=3
+            '''
+        }
+        timeout(time: 5, unit: 'MINUTES') {
+            waitForQualityGate abortPipeline: true
+        }
+    }
         }
 
         stage('Build Image Docker') {
