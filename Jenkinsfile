@@ -73,10 +73,20 @@ pipeline {
         }
 
         stage('Push vers Nexus') {
-            steps {
-                sh "docker push ${NEXUS_URL}/${IMAGE_NAME}:${BUILD_NUMBER}"
-            }
+    steps {
+        withCredentials([usernamePassword(
+            credentialsId: 'nexus-credentials',
+            usernameVariable: 'NEXUS_USER',
+            passwordVariable: 'NEXUS_PASS'
+        )]) {
+            sh """
+                echo \$NEXUS_PASS | docker login nexus:8082 \
+                  --username \$NEXUS_USER --password-stdin
+                docker push ${NEXUS_URL}/${IMAGE_NAME}:${BUILD_NUMBER}
+            """
         }
+    }
+}
 
         stage('Deploy Staging') {
             steps {
