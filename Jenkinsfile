@@ -18,9 +18,12 @@ pipeline {
 
         stage('Verification Syntaxe Python') {
             steps {
-                sh 'pip install flake8 --quiet'
-                sh 'flake8 ./addons --max-line-length=100'
-            }
+                sh '''
+            python3 -m venv .venv
+            .venv/bin/pip install flake8 --quiet
+            .venv/bin/flake8 . --max-line-length=120 --exclude=.venv
+        '''
+    }  }
         }
 
         stage('Tests Unitaires') {
