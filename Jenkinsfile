@@ -90,12 +90,12 @@ pipeline {
 
         stage('Deploy Staging') {
             steps {
-                sh """
-                    helm upgrade --install odoo-staging ./helm \
-                      --namespace ${STAGING_NS} \
-                      --set image.tag=${BUILD_NUMBER} \
-                      --atomic --wait
-                """
+               sh """
+            helm upgrade --install odoo-staging ./helm \
+              --namespace ${STAGING_NS} \
+              --set image.tag=${BUILD_NUMBER} \
+              --timeout 3m
+        """
             }
         }
 
