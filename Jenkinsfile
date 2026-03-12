@@ -41,6 +41,7 @@ pipeline {
              steps {
         withSonarQubeEnv('SonarQube') {
             sh '''
+                export PATH=$PATH:/opt/sonar-scanner/bin
                 sonar-scanner \
                   -Dsonar.projectKey=odoo-custom \
                   -Dsonar.sources=addons \
