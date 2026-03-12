@@ -23,7 +23,8 @@ pipeline {
             .venv/bin/pip install flake8 --quiet
             .venv/bin/flake8 . --max-line-length=120 --exclude=.venv
         '''
-    }  }
+    } 
+     
         }
 
         stage('Tests Unitaires') {
