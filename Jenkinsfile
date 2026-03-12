@@ -101,8 +101,8 @@ pipeline {
 
         stage('Tests Validation Staging') {
             steps {
-                sh 'sleep 20'
-                sh 'curl -f http://odoo-staging:8070/web/health'
+sh 'sleep 30'
+        sh 'curl -f http://odoo-staging.staging.svc.cluster.local:8069/web/health'
             }
         }
 
