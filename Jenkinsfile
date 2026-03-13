@@ -88,9 +88,11 @@ pipeline {
     }
 }
 
-        stage('Deploy Staging') {
+      stage('Deploy Staging') {
     steps {
         sh "minikube image load ${NEXUS_URL}/${IMAGE_NAME}:${BUILD_NUMBER}"
+        sh "kubectl create namespace ${STAGING_NS} --dry-run=client -o yaml | kubectl apply -f -"
+        sh "kubectl create namespace ${PROD_NS} --dry-run=client -o yaml | kubectl apply -f -"
         sh """
             helm upgrade --install odoo-staging ./helm \
               --namespace ${STAGING_NS} \
@@ -99,7 +101,6 @@ pipeline {
         """
     }
 }
-
         stage('Tests Validation Staging') {
             steps {
 sh 'sleep 30'
