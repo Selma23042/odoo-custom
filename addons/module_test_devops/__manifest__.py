@@ -7,4 +7,5 @@
     'depends': ['base'],
     'installable': True,
     'auto_install': False,
+    'data': ['views/mon_modele_views.xml'],
 }

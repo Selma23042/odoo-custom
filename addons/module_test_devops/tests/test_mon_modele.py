@@ -80,3 +80,4 @@ class TestMonModele:
             description='Ma description'
         )
         assert record.description == 'Ma description'
+        
