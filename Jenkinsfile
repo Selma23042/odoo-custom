@@ -102,11 +102,11 @@ pipeline {
     }
 }
         stage('Tests Validation Staging') {
-            steps {
-sh 'sleep 30'
-        sh 'curl -f http://odoo-staging.staging.svc.cluster.local:8069/web/health'
-            }
-        }
+    steps {
+        sh 'sleep 30'
+        sh 'curl -f http://192.168.49.2:30069/web/health'
+    }
+}
 
         stage('Deploy Production') {
             when { branch 'main' }
