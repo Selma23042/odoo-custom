@@ -89,15 +89,16 @@ pipeline {
 }
 
         stage('Deploy Staging') {
-            steps {
-               sh """
+    steps {
+        sh "minikube image load ${NEXUS_URL}/${IMAGE_NAME}:${BUILD_NUMBER}"
+        sh """
             helm upgrade --install odoo-staging ./helm \
               --namespace ${STAGING_NS} \
               --set image.tag=${BUILD_NUMBER} \
               --timeout 3m
         """
-            }
-        }
+    }
+}
 
         stage('Tests Validation Staging') {
             steps {

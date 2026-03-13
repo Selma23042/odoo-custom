@@ -2,7 +2,7 @@ replicaCount: 1
 
 image:
   repository: nexus:8082/odoo-custom
-  pullPolicy: Always
+  pullPolicy: IfNotPresent
   tag: ""
 
 imagePullSecrets:
