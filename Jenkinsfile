@@ -109,7 +109,7 @@ pipeline {
 }
 
         stage('Deploy Production') {
-            when { branch 'main' }
+            
             steps {
                 sh """
                     helm upgrade --install odoo-prod ./helm \
