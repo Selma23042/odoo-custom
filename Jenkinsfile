@@ -108,18 +108,17 @@ pipeline {
     }
 }
 
-        stage('Deploy Production') {
-            
-            steps {
-                sh """
-                    helm upgrade --install odoo-prod ./helm \
-                      --namespace ${PROD_NS} \
-                      --set image.tag=${BUILD_NUMBER} \
-                      --atomic --wait
-                """
-            }
-        }
+      stage('Deploy Production') {
+    steps {
+        sh """
+            helm upgrade --install odoo-prod ./helm \
+              --namespace ${PROD_NS} \
+              --set image.tag=${BUILD_NUMBER} \
+              --set service.nodePort=30070 \
+              --atomic --wait
+        """
     }
+}
 
     post {
         success {
