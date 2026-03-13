@@ -8,7 +8,7 @@ try:
         description = fields.Text(string='Description')
         actif = fields.Boolean(string='Actif', default=True)
         date_creation = fields.Date(
-            string='Date création',
+            string='Date creation',
             default=fields.Date.today
         )
 
@@ -28,7 +28,6 @@ class MonModeleSimule:
 
 class TestMonModele:
 
-    # ✅ Tests existants
     def test_creation_enregistrement(self):
         record = MonModeleSimule(
             name='Test DevOps',
@@ -48,25 +47,19 @@ class TestMonModele:
         except ValueError:
             assert True
 
-    # ✅ Tests à ajouter
-
     def test_description_par_defaut(self):
-        """Description vide par défaut"""
         record = MonModeleSimule(name='Test')
         assert record.description == ''
 
     def test_actif_par_defaut(self):
-        """Actif est True par défaut"""
         record = MonModeleSimule(name='Test')
         assert record.actif is True
 
     def test_actif_false(self):
-        """On peut créer un enregistrement inactif"""
         record = MonModeleSimule(name='Test', actif=False)
         assert record.actif is False
 
     def test_name_none_leve_erreur(self):
-        """None comme name doit lever une erreur"""
         try:
             MonModeleSimule(name=None)
             assert False, "Devrait lever une erreur"
@@ -74,10 +67,8 @@ class TestMonModele:
             assert True
 
     def test_description_personnalisee(self):
-        """Description personnalisée est bien enregistrée"""
         record = MonModeleSimule(
             name='Test',
             description='Ma description'
         )
         assert record.description == 'Ma description'
-
