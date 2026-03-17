@@ -103,7 +103,7 @@ pipeline {
 }
         stage('Tests Validation Staging') {
     steps {
-        sh 'sleep 60'
+        sh 'sleep 30'
         sh 'curl -f http://192.168.49.2:30069/web/health'
     }
 }
