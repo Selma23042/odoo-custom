@@ -105,7 +105,7 @@ pipeline {
         stage('Tests Validation Staging') {
             when { branch 'develop' }
     steps {
-        sh 'sleep 30'
+        sh 'sleep 20'
         sh 'curl -f http://192.168.49.2:30069/web/health'
     }
 }
