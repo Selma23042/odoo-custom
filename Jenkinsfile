@@ -117,20 +117,19 @@ pipeline {
     }
 }
 
-      stage('Deploy Production') {
-        when { expression { env.GIT_BRANCH == 'main' } }
+     stage('Deploy Production') {
+    when { expression { env.GIT_BRANCH == 'main' } }
     steps {
-                sh """
-                    helm upgrade --install odoo-prod ./helm \
-                      --namespace ${PROD_NS} \
-                      --set image.tag=${BUILD_NUMBER} \
-                      --set service.nodePort=30070 \
-                      --atomic --wait
-                """
-            }
-        }
+        sh "minikube image load ${NEXUS_URL}/${IMAGE_NAME}:${BUILD_NUMBER}"
+        sh """
+            helm upgrade --install odoo-prod ./helm \
+              --namespace ${PROD_NS} \
+              --set image.tag=${BUILD_NUMBER} \
+              --set service.nodePort=30070 \
+              --atomic --wait --timeout 6m
+        """
     }
-
+}
     post {
         success {
             echo "✅ Build ${BUILD_NUMBER} déployé avec succès !"
