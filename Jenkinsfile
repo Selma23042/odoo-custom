@@ -117,7 +117,7 @@ pipeline {
     }
 }
 
-     stage('Deploy Production') {
+    stage('Deploy Production') {
     when { expression { env.GIT_BRANCH == 'main' } }
     steps {
         sh "minikube image load ${NEXUS_URL}/${IMAGE_NAME}:${BUILD_NUMBER}"
