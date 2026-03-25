@@ -94,8 +94,8 @@ pipeline {
 }
 
       stage('Deploy Staging') {
-          when { expression { env.GIT_BRANCH ==~ '.*/develop' } }
- 
+          when { expression { env.GIT_BRANCH == 'develop' } }
+
     steps {
         sh "minikube image load ${NEXUS_URL}/${IMAGE_NAME}:${BUILD_NUMBER}"
         sh "kubectl create namespace ${STAGING_NS} --dry-run=client -o yaml | kubectl apply -f -"
@@ -109,7 +109,8 @@ pipeline {
     }
 }
         stage('Tests Validation Staging') {
-           
+          when { expression { env.GIT_BRANCH == 'develop' } }
+    
     steps {
         sh 'sleep 40'
         sh 'curl -f http://192.168.49.2:30069/web/health'
@@ -117,8 +118,8 @@ pipeline {
 }
 
       stage('Deploy Production') {
-        when { expression { env.GIT_BRANCH ==~ '.*/main' } }
-            steps {
+        when { expression { env.GIT_BRANCH == 'main' } }
+    steps {
                 sh """
                     helm upgrade --install odoo-prod ./helm \
                       --namespace ${PROD_NS} \
