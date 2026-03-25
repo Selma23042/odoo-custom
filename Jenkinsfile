@@ -130,6 +130,7 @@ pipeline {
         """
     }
 }
+}
     post {
         success {
             echo "✅ Build ${BUILD_NUMBER} déployé avec succès !"
