@@ -107,7 +107,7 @@ pipeline {
             when { expression { env.GIT_BRANCH ==~ '.*/develop' } }
 
     steps {
-        sh 'sleep 20'
+        sh 'sleep 40'
         sh 'curl -f http://192.168.49.2:30069/web/health'
     }
 }
