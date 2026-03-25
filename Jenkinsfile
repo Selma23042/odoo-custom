@@ -14,6 +14,11 @@ pipeline {
         stage('Checkout') {
             steps {
                 checkout scm
+                script {
+            // Ajoute ces 2 lignes
+            env.GIT_BRANCH = sh(script: 'git rev-parse --abbrev-ref HEAD', returnStdout: true).trim()
+            echo "Branche : ${env.GIT_BRANCH}"
+        }
             }
         }
 
@@ -89,7 +94,8 @@ pipeline {
 }
 
       stage('Deploy Staging') {
-           
+          when { expression { env.GIT_BRANCH ==~ '.*/develop' } }
+ 
     steps {
         sh "minikube image load ${NEXUS_URL}/${IMAGE_NAME}:${BUILD_NUMBER}"
         sh "kubectl create namespace ${STAGING_NS} --dry-run=client -o yaml | kubectl apply -f -"
@@ -111,6 +117,7 @@ pipeline {
 }
 
       stage('Deploy Production') {
+        when { expression { env.GIT_BRANCH ==~ '.*/main' } }
             steps {
                 sh """
                     helm upgrade --install odoo-prod ./helm \
